@@ -27,3 +27,13 @@ def join_features_labels(X0, X1):
     Y1 = pd.DataFrame(np.ones(X1.shape[0]),columns=['label'])
     XY1 = pd.concat([X1,Y1],axis=1)
     return pd.concat([XY0,XY1],axis=0,ignore_index=True)
+
+def ajuste_numero(img):
+    # width
+    col = img.sum(axis=0)
+    indc = np.argwhere(col > 0)
+    # height
+    row = img.sum(axis=1)
+    indr = np.argwhere(row > 0)
+    img_rec = img[int(indr[0]):int(indr[-1]), int(indc[0]):int(indc[-1])]
+    return img_rec
