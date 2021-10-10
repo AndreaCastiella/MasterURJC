@@ -37,3 +37,4 @@ def ajuste_numero(img):
     indr = np.argwhere(row > 0)
     img_rec = img[int(indr[0]):int(indr[-1]), int(indc[0]):int(indc[-1])]
     return img_rec
+
