@@ -24,11 +24,11 @@ def single_stratified_split(X, Y, test_size=.2, random_state=1234):
 def join_features_labels(X0, X1, X2, X3):
     Y0 = pd.DataFrame(np.zeros(X0.shape[0]), columns=['label'])
     XY0 = pd.concat([X0, Y0], axis=1)
-    Y1 = pd.DataFrame(np.ones(X1.shape[0]), columns=['label'])
+    Y1 = pd.DataFrame(3*np.ones(X1.shape[0]), columns=['label'])
     XY1 = pd.concat([X1, Y1], axis=1)
-    Y2 = pd.DataFrame(np.ones(X2.shape[0]), columns=['label'])
+    Y2 = pd.DataFrame(6*np.ones(X2.shape[0]), columns=['label'])
     XY2 = pd.concat([X2, Y2], axis=1)
-    Y3 = pd.DataFrame(np.ones(X3.shape[0]), columns=['label'])
+    Y3 = pd.DataFrame(9*np.ones(X3.shape[0]), columns=['label'])
     XY3 = pd.concat([X3, Y3], axis=1)
 
     return pd.concat([XY0, XY1, XY2, XY3], axis=0, ignore_index=True)
@@ -54,7 +54,7 @@ def feat_extraction(data, perc=0.3, perc2=0.45, alfa=0.5, adjust=True):
     for i in range(data.shape[0]): # For each image.
         img = data[i,:,:]
         if adjust:
-            img = our.number_adjust(img) # Returns an image with the size adjusted to the number.
+            img = number_adjust(img) # Returns an image with the size adjusted to the number.
         # Característica 1
         img_left = img[:, :int(img.shape[1]*(perc))]
         feat_1 = np.sum(img_left > 0.5)/(img_left.shape[0]*img_left.shape[1]) # Percentage of pixels of the left % of the image > 128 (0.5).
