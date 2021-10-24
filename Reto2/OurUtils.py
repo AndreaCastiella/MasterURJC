@@ -46,38 +46,39 @@ def number_adjust(img):
 
 
 # Feature extraction
-def feat_extraction(data, perc=0.3, perc2=0.45, alfa=0.5, adjust=True):
-    num_feat = 9
+def feat_extraction(data, perc=0.41, bright=0.4, perc2=0.45, alfa=0.5, adjust=True):
+    num_feat = 11
     features = np.zeros([data.shape[0], num_feat])
     data = data.values.reshape([data.shape[0],28,28]) # Each row is an image, reshape a 28x28.
 
     for i in range(data.shape[0]): # For each image.
         img = data[i,:,:]
+        img28 = img.copy()
         if adjust:
             img = number_adjust(img) # Returns an image with the size adjusted to the number.
         # Característica 1
         img_left = img[:, :int(img.shape[1]*(perc))]
-        feat_1 = np.sum(img_left > 0.5)/(img_left.shape[0]*img_left.shape[1]) # Percentage of pixels of the left % of the image > 128 (0.5).
+        feat_1 = np.sum(img_left > bright)/(img_left.shape[0]*img_left.shape[1]) # Percentage of pixels of the left % of the image > bright.
         features[i, 0] = feat_1
         # Característica 2
         img_inf = img[int(img.shape[0]*(1-perc)):, :]
         # feat_2 = np.sum(img_inf) # Sum of the pixels of the lower % of the image.
-        feat_2 = np.sum(img_inf > 0.5)/(img_inf.shape[0]*img_inf.shape[1]) # Percentage of pixels of the lower % of the image > 128 (0.5).
+        feat_2 = np.sum(img_inf > bright)/(img_inf.shape[0]*img_inf.shape[1]) # Percentage of pixels of the lower % of the image > bright.
         features[i, 1] = feat_2
         # Característica 3
         img_right = img[:, int(img.shape[1]*(1-perc)):]
         # feat_3 = np.sum(img_der) # Sum of the pixels of the right % of the image.
-        feat_3 = np.sum(img_right > 0.5)/(img_right.shape[0]*img_right.shape[1]) # Percentage of pixels of the right % of the image > 128 (0.5).
+        feat_3 = np.sum(img_right > bright)/(img_right.shape[0]*img_right.shape[1]) # Percentage of pixels of the right % of the image > bright.
         features[i, 2] = feat_3
         # Característica 4
         img_sup = img[:int(img.shape[0]*(perc)), :]
         # feat_4 = np.sum(img_sup) # Sum of the pixels in the upper % of the image
-        feat_4 = np.sum(img_sup > 0.5)/(img_sup.shape[0]*img_sup.shape[1]) # Percentage of pixels of the upper % of the image > 128 (0.5).
+        feat_4 = np.sum(img_sup > bright)/(img_sup.shape[0]*img_sup.shape[1]) # Percentage of pixels of the upper % of the image > bright.
         features[i, 3] = feat_4
         # Característica 5
         img_cuad = img[int(img.shape[0]*(1-perc)):,int(img.shape[1]*(perc)):]
         # feat_5 = np.sum(img_cuad) # Sum of the lower right quadrant
-        feat_5 = np.sum(img_cuad > 0.5)/(img_cuad.shape[0]*img_cuad.shape[1]) # Percentage of pixels of the lower right quadrant % of the image > 128 (0.5).
+        feat_5 = np.sum(img_cuad > bright)/(img_cuad.shape[0]*img_cuad.shape[1]) # Percentage of pixels of the lower right quadrant % of the image > bright.
         features[i, 4] = feat_5
         # Característica 6
         feat_6 = np.amax(np.sum(img, axis=0)) # Maximum value of the sum of the columns.
@@ -110,6 +111,13 @@ def feat_extraction(data, perc=0.3, perc2=0.45, alfa=0.5, adjust=True):
         args = np.argwhere( img_row > 0.6)
         distance_lower = args[-1,0] - args[0,0]
         features[i, 8] = float(distance_lower)/float(distance_upper) # Max upper distance / max lower distance
-    col_names = ['feat_1','feat_2', 'feat_3', 'feat_4', 'feat_5', 'feat_6', 'feat_7', 'feat_8', 'feat_9']
+        # Caracteristica 10
+        tril_img = np.tril(img28, -1)
+        triu_img = np.triu(img28, -1)
+        tril_sum = np.sum(tril_img > bright)/(tril_img.shape[0]*tril_img.shape[1])  # Percentage of pixels of the lower triang of the image > bright.
+        triu_sum = np.sum(triu_img > bright)/(triu_img.shape[0]*triu_img.shape[1])  # Percentage of pixels of the upper triang of the image > bright.
+        features[i, 9] = triu_sum/tril_sum 
+        # Característica 11
+        features[i, 10] = tril_sum**2/triu_sum**2
+    col_names = ['feat_1','feat_2', 'feat_3', 'feat_4', 'feat_5', 'feat_6', 'feat_7', 'feat_8', 'feat_9', 'feat_10', 'feat_11']
     return pd.DataFrame(features,columns = col_names)
-
