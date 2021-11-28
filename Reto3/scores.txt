@@ -1,0 +1,17 @@
+adaboost:
+    no pca
+        73
+        72
+    pca
+        68
+        68
+
+dt:
+    no pca
+        todos y poli: 80
+        smote 10k: 77
+        depth 15, smote 10k, resampling 10k, poly: 84
+        depth 15, smote 10k, resampling 10k, transformer: 83/84
+        depth 17, smote 10k, resampling 10k, transformer: (85 76)/(85 76)
+        depth 20, smote 10k, resampling 10k, transformer: (86 78)/(85 76)
+        

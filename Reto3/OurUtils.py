@@ -1,6 +1,8 @@
 ## Utils functions
 
 from sklearn.decomposition import PCA
+from sklearn.decomposition import KernelPCA
+from sklearn.preprocessing import PolynomialFeatures, FunctionTransformer, MinMaxScaler
 import numpy as np
 
 # Function to add noise to improve the visualization and interpretation of the data.
@@ -45,3 +47,42 @@ def our_PCA(data, n_components=.7):
         print("ERROR: the number of principal components has to be less or equal than data dimension !")
     return X_proy, pca
 
+
+def our_kernelPCA(data, n_components=5):
+    n_components = n_components
+    kernel = "rbf" # options are: "linear", "poly", "rbf", "sigmoid"
+    kernel_parameter = 1
+    rbf_pca = KernelPCA(n_components = n_components,
+                        kernel=kernel, gamma=kernel_parameter, fit_inverse_transform=True)
+    X_proy = rbf_pca.fit_transform(data)
+    return X_proy
+
+def our_scale_transform_features(X, Y, scaler=None, use_pca=False, transform=None, transform_type="transformer"):
+    
+    # scale features
+    if scaler == None:
+        scaler = MinMaxScaler()
+        X = scaler.fit_transform(X)
+    else:
+        X = scaler.transform(X)
+
+    # pca
+    pca = None
+    if use_pca:
+        X, pca = our_PCA(X)
+
+    # apply some preproccesing
+    if transform is not None:
+        X = transform.fit_transform(X)
+    else:
+        if transform_type == "poly":
+            transform = PolynomialFeatures(2)
+            X = transform.fit_transform(X)
+
+        if transform_type == "transformer":
+            transform = FunctionTransformer(np.log1p, validate=True)
+            X = transform.fit_transform(X)
+
+    # get Y values
+    Y = Y.values.ravel()
+    return (X, Y, scaler, pca, transform)
