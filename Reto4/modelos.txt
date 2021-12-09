@@ -1,0 +1,29 @@
+ conv + conv + conv + fc + fc
+ resnet + resnet + resnet + fc + fc
+ inception + inception + inception + fc +fc
+
+ batchnormalization
+ maxpool
+
+
+conv(8) + conv(16) + conv(32) + fc + fc
+    Epoch 1, Perdida: 1.3635785579681396, Exactitud: 30.625, Perdida de prueba: 1.2980982065200806, Exactitud de prueba: 43.75
+    Epoch 2, Perdida: 1.2016241550445557, Exactitud: 45.15625, Perdida de prueba: 1.0142309665679932, Exactitud de prueba: 50.0
+    Epoch 3, Perdida: 1.0608831644058228, Exactitud: 55.46875, Perdida de prueba: 0.7946091294288635, Exactitud de prueba: 75.0
+    Epoch 4, Perdida: 0.973770260810852, Exactitud: 59.84375, Perdida de prueba: 1.1335852146148682, Exactitud de prueba: 62.5
+    Epoch 5, Perdida: 0.8907211422920227, Exactitud: 64.6875, Perdida de prueba: 0.8628531694412231, Exactitud de prueba: 81.25
+    Epoch 6, Perdida: 0.8222283124923706, Exactitud: 69.921875, Perdida de prueba: 1.0301114320755005, Exactitud de prueba: 56.25
+    Epoch 7, Perdida: 0.7674976587295532, Exactitud: 71.484375, Perdida de prueba: 0.612027108669281, Exactitud de prueba: 87.5
+    Epoch 8, Perdida: 0.6914874911308289, Exactitud: 75.859375, Perdida de prueba: 0.7638729810714722, Exactitud de prueba: 75.0
+    Epoch 9, Perdida: 0.6431988477706909, Exactitud: 78.125, Perdida de prueba: 0.5768251419067383, Exactitud de prueba: 81.25
+    Epoch 10, Perdida: 0.5848486423492432, Exactitud: 80.625, Perdida de prueba: 0.7295999526977539, Exactitud de prueba: 75.0
+    Epoch 11, Perdida: 0.527285099029541, Exactitud: 84.765625, Perdida de prueba: 0.7169626951217651, Exactitud de prueba: 75.0
+    Epoch 12, Perdida: 0.4751923084259033, Exactitud: 86.5625, Perdida de prueba: 0.4862340986728668, Exactitud de prueba: 81.25
+    Epoch 13, Perdida: 0.43084174394607544, Exactitud: 89.0625, Perdida de prueba: 0.3289699852466583, Exactitud de prueba: 100.0
+    Epoch 14, Perdida: 0.38560569286346436, Exactitud: 90.15625, Perdida de prueba: 0.3768845796585083, Exactitud de prueba: 87.5
+    Epoch 15, Perdida: 0.35540974140167236, Exactitud: 90.0, Perdida de prueba: 0.32528015971183777, Exactitud de prueba: 93.75
+    Epoch 16, Perdida: 0.31795933842658997, Exactitud: 91.875, Perdida de prueba: 0.20844390988349915, Exactitud de prueba: 100.0
+    Epoch 17, Perdida: 0.2663479149341583, Exactitud: 95.3125, Perdida de prueba: 0.15800531208515167, Exactitud de prueba: 100.0
+    Epoch 18, Perdida: 0.24630889296531677, Exactitud: 95.625, Perdida de prueba: 0.3373888432979584, Exactitud de prueba: 93.75
+    Epoch 19, Perdida: 0.22217270731925964, Exactitud: 96.71875, Perdida de prueba: 0.13538327813148499, Exactitud de prueba: 100.0
+    Epoch 20, Perdida: 0.19572925567626953, Exactitud: 97.34375, Perdida de prueba: 0.45747366547584534, Exactitud de prueba: 93.75
